@@ -1,26 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(13.968% 0.00755 196.437);
+  --foreground: oklch(98% 0.02 195);
+  --muted: oklch(39.42% 0.0053 197.409);
+
+  --primary-accent: oklch(65% 0.24 195);
+  --primary-muted: oklch(25% 0.10 195);
+  --primary-muted-foreground: oklch(75% 0.16 195);
+  --primary-border: oklch(35% 0.12 195);
+
+  --table-header-background: oklch(23.758% 0.00359 229.246);
+  --table-header-foreground: oklch(84.035% 0.00441 237.22);
+
+
+  --secondary-background: oklch(55.298% 0.20171 359.781);
+
+  /* Inmutable Colors (Commons) */
+  --success: oklch(72.276% 0.19199 149.6);
+  --warning: oklch(76.858% 0.1646 70.075);
+  --error: oklch(63.681% 0.20784 25.315);
+  --info: oklch(62.31% 0.1881 259.83);
+  --light: oklch(98.463% 0.00181 249.248);
+  --dark: oklch(21.009% 0.03179 264.678);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+
+  --color-primary-accent: var(--primary-accent);
+  --color-primary-muted: var(--primary-muted);
+  --color-primary-muted-foreground: var(--primary-muted-foreground);
+  --color-primary-border: var(--primary-border);
+
+  --color-secondary-background: var(--secondary-background);
+
+  --color-table-header-background: var(--table-header-background);
+  --color-table-header-foreground: var(--table-header-foreground);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  --color-light: var(--light);
+  --color-dark: var(--dark);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
 }

@@ -1,0 +1,86 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "domain": "https://johndoe.com",
+    "accessLevel": "global",
+    "active": true
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "domain": "https://janesmith.org",
+    "accessLevel": "tenant",
+    "active": false
+  },
+  {
+    "id": 3,
+    "name": "Acme Corp",
+    "domain": "https://acmecorp.com",
+    "accessLevel": "global",
+    "active": true
+  },
+  {
+    "id": 4,
+    "name": "Beta LLC",
+    "domain": "https://betallc.net",
+    "accessLevel": "tenant",
+    "active": true
+  },
+  {
+    "id": 5,
+    "name": "Gamma Inc",
+    "domain": "https://gammainc.io",
+    "accessLevel": "tenant",
+    "active": false
+  },
+  {
+    "id": 6,
+    "name": "Delta Co",
+    "domain": "https://deltaco.biz",
+    "accessLevel": "global",
+    "active": true
+  },
+  {
+    "id": 7,
+    "name": "Epsilon Ltd",
+    "domain": "https://epsilonltd.com",
+    "accessLevel": "tenant",
+    "active": true
+  },
+  {
+    "id": 8,
+    "name": "Zeta Partners",
+    "domain": "https://zetapartners.org",
+    "accessLevel": "global",
+    "active": false
+  },
+  {
+    "id": 9,
+    "name": "Eta Solutions",
+    "domain": "https://etasolutions.net",
+    "accessLevel": "tenant",
+    "active": true
+  },
+  {
+    "id": 10,
+    "name": "Theta Enterprises",
+    "domain": "https://thetaenterprises.io",
+    "accessLevel": "global",
+    "active": false
+  },
+  {
+    "id": 11,
+    "name": "Iota Systems",
+    "domain": "https://iotasystems.biz",
+    "accessLevel": "tenant",
+    "active": true
+  },
+  {
+    "id": 12,
+    "name": "Kappa Technologies",
+    "domain": "https://kappatechnologies.com",
+    "accessLevel": "global",
+    "active": true
+  }
+]
