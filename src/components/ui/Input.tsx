@@ -29,8 +29,7 @@ export const Input = <T extends Record<string, unknown>,>({
       type={type}
       className={classMerger(
         'bg-muted/60 border border-muted/60 text-foreground placeholder:text-table-header-foreground',
-        'py-2 px-3 rounded-lg font-medium text-sm w-full focus:outline-none focus-visible:ring-3',
-        'focus-visible:ring-ring',
+        'py-2 px-3 rounded-lg text-sm w-full focus:outline-none focus-visible:ring-3 focus-visible:ring-ring',
         className
       )}
       {...registration}

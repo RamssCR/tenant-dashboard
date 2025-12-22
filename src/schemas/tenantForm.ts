@@ -6,7 +6,7 @@ export const tenant = z.object({
     .max(100, { error: 'The name must not exceed 100 characters' }),
   domain: z.url({ error: 'Input a valid domain for the tenant' }),
   accessLevel: z.enum(['global', 'tenant'], { error: 'The access level must be "global" or "tenant"' }),
-  active: z.boolean().default(true).optional(),
+  active: z.coerce.boolean().default(true).optional(),
 })
 
 export type Tenant = z.infer<typeof tenant>

@@ -18,7 +18,7 @@ export const Switch = ({
       data-slot="switch"
       className={classMerger(
         'peer data-[state=checked]:bg-primary-accent hover:cursor-pointer data-[state=unchecked]:bg-muted',
-        'focus-visible:border-table-header-foreground/60 focus-visible:ring-table-header-foreground/60 inline-flex h-[1.3rem] w-9 shrink-0 items-center rounded-full',
+        'focus-visible:border-table-header-foreground/60 focus-visible:ring-table-header-foreground/60 inline-flex h-[1.29rem] w-9 shrink-0 items-center rounded-full',
         'shadow-xs transition-all outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
         className,
       )}
