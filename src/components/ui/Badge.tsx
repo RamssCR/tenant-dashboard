@@ -4,7 +4,7 @@ import type { Text } from './Text'
 import { classMerger } from '@/utils/classMerger'
 
 const badge = tv({
-  base: 'inline-flex w-fit items-center justify-center rounded-full font-medium transition-colors duration-200 border py-0.75 px-3 text-sm capitalize',
+  base: 'inline-flex w-fit items-center justify-center rounded-full font-medium transition-colors duration-200 border py-0.75 px-3 text-[0.9em] capitalize',
   variants: {
     variant: {
       global: 'bg-secondary-background/10 text-secondary-background border-secondary-background',
