@@ -4,6 +4,7 @@ import {
   NEXT_PUBLIC_BACKEND_TENANT_SECRET,
   NEXT_PUBLIC_BACKEND_URL,
 } from "@/config/environment"
+import { Tenant } from "@/schemas/tenantForm"
 import { revalidateTag } from "next/cache"
 
 /**
@@ -60,6 +61,32 @@ export const toggleTenantStatus = async (
       }
     )
     if (!response.ok) throw new Error('Failed to toggle tenant status')
+    revalidateTag('tenants', 'max')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+/**
+ * Creates a new tenant.
+ * @param data - The tenant data.
+ * @returns A promise that resolves when the tenant is created.
+ */
+export const createTenant = async (data: Tenant): Promise<void> => {
+  try {
+    const response = await fetch(
+      `${NEXT_PUBLIC_BACKEND_URL}/tenants`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Tenant-Name': NEXT_PUBLIC_BACKEND_TENANT_NAME,
+          'X-Tenant-Secret': NEXT_PUBLIC_BACKEND_TENANT_SECRET,
+        },
+        body: JSON.stringify(data),
+      }
+    )
+    if (!response.ok) throw new Error('Failed to create tenant')
     revalidateTag('tenants', 'max')
   } catch (error) {
     console.error(error)

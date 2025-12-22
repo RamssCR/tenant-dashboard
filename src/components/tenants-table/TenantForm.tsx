@@ -14,6 +14,7 @@ import { Label } from '@/components/ui/Label'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Text } from '@/components/ui/Text'
 import { Switch } from '@/components/ui/Switch'
+import { createTenant } from "@/actions/tenant"
 
 export const TenantForm = () => {
   const {
@@ -36,8 +37,8 @@ export const TenantForm = () => {
    * @param data - The form data.
    * @returns void
    */
-  const onSubmit: SubmitHandler<Tenant> = (data) => {
-    console.log(data)
+  const onSubmit: SubmitHandler<Tenant> = async (data) => {
+    await createTenant(data)
     clear()
   }
 
