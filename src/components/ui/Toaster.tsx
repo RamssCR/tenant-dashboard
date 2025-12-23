@@ -13,6 +13,7 @@ export const Toaster = () => (
         background: '#1a1a1a',
         color: '#f0f0f0',
         border: '1px solid #333333',
+        fontSize: '14px',
       }
     }}
   />
