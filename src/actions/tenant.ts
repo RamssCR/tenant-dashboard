@@ -72,7 +72,7 @@ export const toggleTenantStatus = async (
  * @param data - The tenant data.
  * @returns A promise that resolves when the tenant is created.
  */
-export const createTenant = async (data: Tenant): Promise<void> => {
+export const createTenant = async (data: Tenant): Promise<{ secret: string, tenant: Tenant }> => {
   try {
     const response = await fetch(
       `${NEXT_PUBLIC_BACKEND_URL}/tenants`,
@@ -88,7 +88,11 @@ export const createTenant = async (data: Tenant): Promise<void> => {
     )
     if (!response.ok) throw new Error('Failed to create tenant')
     revalidateTag('tenants', 'max')
+
+    const { data: tenantData } = await response.json()
+    return tenantData
   } catch (error) {
     console.error(error)
+    throw error
   }
 }

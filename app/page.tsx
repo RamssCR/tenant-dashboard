@@ -22,7 +22,7 @@ export default async function Home({ searchParams = {} }: { searchParams?: Searc
   const rows = items.map(formatRow)
 
   return (
-    <main className="*:font-sans w-full flex min-h-screen flex-col gap-6 py-6">
+    <main className="*:font-sans w-full flex min-h-screen flex-col gap-6 py-8">
       <section className="mx-auto w-full max-w-7xl flex flex-col gap-6 items-start">
         <Header />
         <section className="w-full flex flex-col items-start gap-3">

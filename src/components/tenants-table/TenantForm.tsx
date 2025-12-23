@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/Select"
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { type Tenant, tenant } from '@/schemas/tenantForm'
+import { trigger, triggerJSX } from "@/helpers/toast"
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
 import { Label } from '@/components/ui/Label'
@@ -16,9 +17,14 @@ import { Text } from '@/components/ui/Text'
 import { Switch } from '@/components/ui/Switch'
 import { createTenant } from "@/actions/tenant"
 
-export const TenantForm = () => {
+/**
+ * Form component for creating a new tenant.
+ * @param props - Component props.
+ * @returns JSX.Element The TenantForm component.
+ */
+export const TenantForm = ({ close }: { close: () => void }) => {
   const {
-    formState: { isSubmitting },
+    formState: { errors, isSubmitting },
     handleSubmit,
     register,
     setValue,
@@ -27,10 +33,15 @@ export const TenantForm = () => {
   const buttonState = isSubmitting ? 'Creating...' : 'Create Tenant'
 
   /**
-   * Clears all form fields.
+   * Handles form errors.
+   * @param errors - The form errors.
    * @returns void
    */
-  const clear = () => reset()
+  const onError = () => {
+    const error = Object.values(errors)[0]
+    if (error)
+      trigger({ message: error.message ?? 'Form submission error', type: 'error' })
+  }
 
   /**
    * Sends form data on submission.
@@ -38,14 +49,23 @@ export const TenantForm = () => {
    * @returns void
    */
   const onSubmit: SubmitHandler<Tenant> = async (data) => {
-    await createTenant(data)
-    clear()
+    try {
+      const { secret } = await createTenant(data)
+      triggerJSX({
+        message: `Tenant created. Tenant Secret: ${secret}`,
+        duration: Infinity
+      })
+      reset()
+      close()
+    } catch {
+      trigger({ message: 'Failed to create tenant', type: 'error' })
+    }
   }
 
   return (
     <form
       className="w-full space-y-6"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(onSubmit, onError)}
     >
       {(['name', 'domain'] as const).map((field) => (
         <article key={field} className='space-y-2.5'>
