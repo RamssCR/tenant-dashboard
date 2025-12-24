@@ -102,7 +102,7 @@ export const TenantForm = ({ close }: { close: () => void }) => {
         <Switch
           id="active"
           defaultChecked
-          {...register("active")}
+          onCheckedChange={(checked: boolean) => setValue('active', checked)}
         />
       </article>
       <Button
