@@ -27,8 +27,9 @@ export const triggerJSX = ({ message, duration = 4000, type = 'success' }: Trigg
       {message}
       <button
         onClick={() => toast.dismiss(t.id)}
-        className='p-1 hover:bg-transparent border border-muted/60 rounded-md ml-2'
+        className='p-1 hover:bg-transparent border border-muted/60 rounded-md ml-2 hover:cursor-pointer'
         aria-label='Close toast'
+        title='Close toast'
       >
         <X aria-hidden="true" className='text-foreground text-sm' />
       </button>

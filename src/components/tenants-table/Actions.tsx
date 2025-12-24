@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button"
 import { TableRow } from "@/types/table"
 import { Text } from "@/components/ui/Text"
 import { classMerger } from "@/utils/classMerger"
+import { useTransition } from "react"
 
 type ActionsProps = Pick<TableRow, 'name' | 'accessLevel' | 'active'> & {
   isSelfTenant?: boolean
@@ -34,19 +35,28 @@ export const Actions = ({
   name,
   isSelfTenant = false,
 }: ActionsProps) => {
+  const [isPending, startTransition] = useTransition()
   const parsed = actionsState[String(active) as unknown as keyof typeof actionsState]
   
   /**
    * Handles the access level switch action.
    * @returns A promise that resolves when the access level is switched.
    */
-  const changeAccessLevel = async () => await switchTenantAcess(name, accessLevel)
+  const changeAccessLevel = () => {
+    startTransition(async () => 
+      await switchTenantAcess(name, accessLevel)
+    )
+  }
 
   /**
    * Handles the activation status toggle action.
    * @returns A promise that resolves when the activation status is toggled.
    */
-  const changeStatus = async () => await toggleTenantStatus(name, active)
+  const changeStatus = () => {
+    startTransition(async () =>
+      await toggleTenantStatus(name, active)
+    )
+  }
 
   return (
     <article className="flex items-center gap-6">
@@ -55,7 +65,7 @@ export const Actions = ({
         aria-label={`Switch Access`}
         onClick={changeAccessLevel}
         title={`Switch Access`}
-        disabled={isSelfTenant || !active}
+        disabled={isSelfTenant || !active || isPending}
       >
         <RefreshCw className="text-info" aria-hidden="true" />
         <Text className="text-info text-sm">Switch Access</Text>
@@ -65,7 +75,7 @@ export const Actions = ({
         aria-label={`${parsed.activationMessage} Tenant`}
         title={`${parsed.activationMessage} Tenant`}
         onClick={changeStatus}
-        disabled={isSelfTenant}
+        disabled={isSelfTenant || isPending}
       >
         {parsed.activationIcon}
         <Text className={classMerger('text-sm', parsed.activationClassName)}>

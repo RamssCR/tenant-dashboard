@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/Select"
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { SubmitErrorHandler, type SubmitHandler, useForm } from 'react-hook-form'
 import { type Tenant, tenant } from '@/schemas/tenantForm'
 import { trigger, triggerJSX } from "@/helpers/toast"
 import { Button } from '@/components/ui/Button'
@@ -24,12 +24,15 @@ import { createTenant } from "@/actions/tenant"
  */
 export const TenantForm = ({ close }: { close: () => void }) => {
   const {
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
     handleSubmit,
     register,
     setValue,
     reset,
-  } = useForm({ resolver: zodResolver(tenant) })
+  } = useForm<Tenant>({
+    resolver: zodResolver(tenant),
+    defaultValues: { active: true }
+  })
   const buttonState = isSubmitting ? 'Creating...' : 'Create Tenant'
 
   /**
@@ -37,7 +40,7 @@ export const TenantForm = ({ close }: { close: () => void }) => {
    * @param errors - The form errors.
    * @returns void
    */
-  const onError = () => {
+  const onError: SubmitErrorHandler<Tenant> = (errors) => {
     const error = Object.values(errors)[0]
     if (error)
       trigger({ message: error.message ?? 'Form submission error', type: 'error' })
@@ -82,7 +85,11 @@ export const TenantForm = ({ close }: { close: () => void }) => {
       ))}
       <article className='w-full space-y-2.5'>
         <Label htmlFor='accessLevel'>Tenant Accessibility</Label>
-        <Select onValueChange={(value: Tenant['accessLevel']) => setValue('accessLevel', value)}>
+        <Select
+          onValueChange={(value: Tenant['accessLevel']) =>
+            setValue('accessLevel', value, { shouldValidate: true })
+          }
+        >
           <SelectTrigger id="accessLevel" className="w-full">
             <SelectValue className="w-full" placeholder="Select access level" />
           </SelectTrigger>
@@ -102,7 +109,9 @@ export const TenantForm = ({ close }: { close: () => void }) => {
         <Switch
           id="active"
           defaultChecked
-          onCheckedChange={(checked: boolean) => setValue('active', checked)}
+          onCheckedChange={(checked: boolean) =>
+            setValue('active', checked, { shouldValidate: true })
+          }
         />
       </article>
       <Button
