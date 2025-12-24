@@ -33,7 +33,10 @@ export const getTenants = async ({
       }
     )
   
-    if (!response.ok) return fallback
+    if (!response.ok) {
+      console.error(await response.text())
+      return fallback
+    }
 
     const { data } = await response.json()
     return paginatedTenants.parse(data)
