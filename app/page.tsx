@@ -8,6 +8,8 @@ import { Text } from "@/components/ui/Text"
 import { getTenants } from "@/services/tenant"
 import { normalizeQueries } from "@/utils/normalizer"
 import { pagination } from "@/schemas/pagination"
+import { stringify } from 'qs'
+import { Filters } from "@/components/filters/Filters"
 
 type SearchParams = Record<string, string | string[] | undefined>
 
@@ -17,7 +19,7 @@ type SearchParams = Record<string, string | string[] | undefined>
  * @returns JSX.Element The Home page component.
  */
 export default async function Home({ searchParams = {} }: { searchParams?: SearchParams }) {
-  const queries = pagination.parse(normalizeQueries(await searchParams))
+  const queries = stringify(pagination.parse(normalizeQueries(await searchParams)))
   const { items, pages, page, total } = await getTenants(queries)
   const rows = items.map(formatRow)
 
@@ -27,7 +29,7 @@ export default async function Home({ searchParams = {} }: { searchParams?: Searc
         <Header />
         <section className="w-full flex flex-col items-start gap-3">
           <article className="w-full flex justify-between items-center">
-            <div className=""></div>
+            <Filters />
             <CreateTable />
           </article>
           <Table<Omit<TableRow, 'accessLevel' | 'active'>>
